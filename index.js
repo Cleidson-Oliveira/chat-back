@@ -3,9 +3,11 @@ dotenv.config();
 
 import { Server } from "socket.io";
 
+const PORT = process.env.PORT | 4000;
+
 let onlineUsers = [];
 
-const io = new Server(4000, {
+const io = new Server(PORT, {
     cors: {
         origin: process.env.FRONT_URL
     }
