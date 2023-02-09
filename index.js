@@ -1,17 +1,20 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 
+import { createServer } from "http";
 import { Server } from "socket.io";
 
 const PORT = process.env.PORT | 4000;
 
-let onlineUsers = [];
+const httpServer = createServer();
 
-const io = new Server(PORT, {
+const io = new Server(httpServer, {
     cors: {
         origin: process.env.FRONT_URL
     }
 });
+
+let onlineUsers = [];
 
 io.on("connection", (socket) => {
     
@@ -34,3 +37,5 @@ io.on("connection", (socket) => {
     });
 
 });
+
+httpServer.listen(PORT)
